@@ -25,4 +25,17 @@ public interface CarDao {
 
     @Insert("insert into carMessage(carName,carType,price,carSeries) values(#{carName},#{carType},#{price},#{carSeries})")
     void insertCar(Car car);
+
+    @Select("select count(*) from carMessage where carName = #{carName} and carSeries= #{carSeries}")
+    int getCountByCarNameAndSeries(String carName, String carSeries);
+
+    @Select("select count(*) from carMessage where id = #{id}")
+    int getCountById(int id);
+
+    @Delete("delete from carMessage where carName = #{carName} and carSeries= #{carSeries} limit 1")
+    void deleteByCarNameAndSeries(String carName, String carSeries);
+
+    @Select("select * from carMessage where carName = #{carName} limit #{start}, #{count}")
+    List<Car> findByCarNameByPage(String carName, int start, int count);
+
 }
